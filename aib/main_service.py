@@ -11,12 +11,8 @@ class RandomFeature(BaseModel):
     x2: int
 
 
-def load_model():
-    return None
-
-
-@aibakery_service.prediction(feature_schema=RandomFeature,
-                             model_loader=load_model)
+@aibakery_service.prediction(model_loader=None,
+                             feature_schema=RandomFeature)
 def predict(model, feature: RandomFeature, results: ResultCapture):
     for i in range(2):
         results.add_result(
@@ -26,3 +22,12 @@ def predict(model, feature: RandomFeature, results: ResultCapture):
                     'page': i,
                 }
         )
+
+
+if __name__ == '__main__':
+    print(predict(
+            feature={
+                'x1': 0,
+                'x2': 10
+            }
+    ))
